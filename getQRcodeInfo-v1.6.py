@@ -17,7 +17,7 @@ def prepare_image(path):
         
         if img.mode in ('RGBA', 'LA') or (img.mode == 'P' and 'transparency' in img.info):
             img = img.convert('RGBA')
-            # Δημιουργία λευκού φόντου (απαραίτητο για τα barcodes)
+
             background = Image.new('RGB', img.size, (255, 255, 255))
             background.paste(img, mask=img.split()[3])
             return background
@@ -56,7 +56,6 @@ def process(path, mode):
         t = obj.type
         d = obj.data.decode("utf-8", errors="ignore")
 
-        # Αν θέλουμε ΜΟΝΟ QR (Mode 1) και βρήκε κάτι άλλο, το προσπερνάμε
         if mode == "1" and t != "QRCODE":
             continue
             
